@@ -17,10 +17,14 @@ if [ -z "$TARGETDIR" ]; then
     exit
 fi
 
-echo -n "Copy files from (1): "
+LASTTARGETNAME=$(ls -1q "$TARGETDIR" | grep PMW | tail -n1)
+LASTTARGETINDEX=${LASTTARGETNAME:4:4}
+STARTINDEX=$((10#$LASTTARGETINDEX + 1))
+
+echo -n "Copy files from ($STARTINDEX): "
 read STARTINDEX
 if [ -z "$STARTINDEX" ]; then
-    STARTINDEX=1
+    STARTINDEX=$((10#$LASTTARGETINDEX + 1))
 fi
 
 echo -n "Confirm (y): "
